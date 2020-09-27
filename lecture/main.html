@@ -2,12 +2,34 @@
 <html>
     <head>
         <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
-<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
     </head>
     <body>
         <div id="root"></div>
-        <script>
+        <script type="text/babel">
+            const e = React.createElement;
 
+            class LikeButton extends React.Component {
+                constructor(props){
+                    super(props);
+                    this.state = {
+                        liked : false
+                    }
+                }
+                render() {
+                    return <button 
+                                type="submit" 
+                                onClick={()=>{console.log(this.state.liked);this.setState({liked:!this.state.liked})}}
+                            >
+                            {this.state.liked ? '좋아요' : '아직 안좋아요'}
+                            </button>
+                    //return e("button",{onClick:()=> {console.log(this.state.liked);this.setState({liked:!this.state.liked})},type:'submit'},this.state.liked+'');
+                }
+            }
+        </script>
+        <script type="text/babel">
+            ReactDOM.render(<div><LikeButton/><LikeButton/><LikeButton/></div>,document.querySelector("#root"));
         </script>
     </body>
 </html>
