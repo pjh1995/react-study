@@ -1,9 +1,13 @@
+const React = require('react');
+const {useState,useRef} = React;
+
 const Gugudan = () => {
-    const [num1, setNum1] = React.useState(Math.ceil(Math.random() * 9))
-    const [num2, setNum2] = React.useState(Math.ceil(Math.random() * 9))
-    const [value, setValue] = React.useState('');
-    const [result, setResult] = React.useState('');
-    const inputRef = React.useRef();
+    
+    const [num1, setNum1] = useState(Math.ceil(Math.random() * 9))
+    const [num2, setNum2] = useState(Math.ceil(Math.random() * 9))
+    const [value, setValue] = useState('');
+    const [result, setResult] = useState('');
+    const inputRef = useRef();
 
     const onSuccess = () => {
         setNum1(getNewNumber());
@@ -18,7 +22,7 @@ const Gugudan = () => {
         }else{
             setResult("땡");
         }
-        inputRef.current .focus();
+        inputRef.current.focus();
     }
     
     const handleChange = (e) => {
@@ -30,11 +34,13 @@ const Gugudan = () => {
     }
 
     return (
-        <div>
+        <>
             <h2>{num1}곱하기{num2}는?</h2>
             <input ref={inputRef} type="number" value={value} onChange={handleChange}/>
             <button onClick={handleClick}>입력 완료</button>
             <h3>{result}</h3>
-        </div>
+        </>
     );
 }
+
+module.exports = Gugudan;
