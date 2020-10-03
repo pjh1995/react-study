@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 const rspData = [
     {
@@ -21,8 +21,18 @@ const rspData = [
 const RSP = () => {
     const [result, setResult] = useState('');
     const [score, setScore] = useState(0);
-    const [imgCoord, setImgCoord] = useState('0');
+    const [imgCoord, setImgCoord] = useState(rspData[0].coord);
     const interval = useRef();
+
+    useEffect(() => {
+        //componentDidMount, componentDidUpdate
+        createInterval();
+        return () => {
+            //componentWillUnMount
+            clearInterval(interval.current);
+        };
+    }, [imgCoord]); //[]안에 것이 바뀌면 useEffect 실행
+
     const createInterval = () => {
         interval.current = setInterval(() => {
             const currentIdx = getIndex();
@@ -55,12 +65,6 @@ const RSP = () => {
             return rspData.findIndex((data) => data.coord === imgCoord);
         }
     };
-    // componentDidMount() {
-    //     this.createInterval();
-    // }
-    // componentWillUnmount() {
-    //     clearInterval(this.interval);
-    // }
     return (
         <>
             <div id="computer" style={{ background: `url(https://en.pimg.jp/023/182/267/1/23182267.jpg) ${imgCoord} 0` }}></div>

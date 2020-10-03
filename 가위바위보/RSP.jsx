@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, memo } from 'react';
 
 const rspData = [
     {
@@ -17,6 +17,25 @@ const rspData = [
         coord: '-284px',
     },
 ];
+
+const ImgTag = (props) => <div id="computer" style={{ background: `url(https://en.pimg.jp/023/182/267/1/23182267.jpg) ${props.imgCoord} 0` }}></div>;
+
+const ResultTag = memo((props) => (
+    <div>
+        {props.result} 현재 {props.score}
+    </div>
+));
+
+const BtnTag = memo((props) => (
+    <div>
+        {rspData.map((data) => (
+            <button key={data.en} id={data.en} className="btn" onClick={(e) => props.onClick(e)}>
+                {data.ko}
+            </button>
+        ))}
+    </div>
+));
+
 class RSP extends Component {
     state = {
         result: '',
@@ -79,16 +98,9 @@ class RSP extends Component {
         const { result, score, imgCoord } = this.state;
         return (
             <>
-                <div id="computer" style={{ background: `url(https://en.pimg.jp/023/182/267/1/23182267.jpg) ${imgCoord} 0` }}></div>
-                <div>
-                    {rspData.map((data) => (
-                        <button key={data.en} id={data.en} className="btn" onClick={(e) => this.onClickBtn(e)}>
-                            {data.ko}
-                        </button>
-                    ))}
-                </div>
-                <div>{result}</div>
-                <div>현재 {score}</div>
+                <ImgTag imgCoord={imgCoord} />
+                <BtnTag onClick={this.onClickBtn} />
+                <ResultTag result={result} score={score} />
             </>
         );
     }
