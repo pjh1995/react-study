@@ -2,14 +2,14 @@ const path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
-    name: 'responsecheck',
+    name: 'minesweeper',
     mode: 'development', //실서비스 : production
     devtool: 'eval', //빠르게
     resolve: {
         extensions: ['.js', '.jsx'],
     },
     entry: {
-        app: ['./client'],
+        app: ['./jsx/client'],
     }, //입력
     module: {
         rules: [
